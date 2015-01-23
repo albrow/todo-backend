@@ -32,6 +32,10 @@ var (
 	// todosCounter is incremented every time a new todo is created
 	// it is used to set todo ids.
 	todosCounter = 0
+	// r is used to render responses
+	r = render.New(render.Options{
+		IndentJSON: true,
+	})
 )
 
 const (
@@ -92,13 +96,10 @@ type todosControllerType struct{}
 var todosController = todosControllerType{}
 
 func (todosControllerType) Index(w http.ResponseWriter, req *http.Request) {
-	r := render.New()
 	r.JSON(w, http.StatusOK, todos)
 }
 
 func (todosControllerType) Create(w http.ResponseWriter, req *http.Request) {
-	r := render.New()
-
 	// Parse data and do validations
 	todoData, err := data.Parse(req)
 	if err != nil {
@@ -117,8 +118,6 @@ func (todosControllerType) Create(w http.ResponseWriter, req *http.Request) {
 }
 
 func (todosControllerType) Update(w http.ResponseWriter, req *http.Request) {
-	r := render.New()
-
 	// Get the existing todo from the map or render an error
 	// if it wasn't found
 	urlParams := mux.Vars(req)
@@ -155,8 +154,6 @@ func (todosControllerType) Update(w http.ResponseWriter, req *http.Request) {
 }
 
 func (todosControllerType) Delete(w http.ResponseWriter, req *http.Request) {
-	r := render.New()
-
 	// Get the id from the url parameters
 	urlParams := mux.Vars(req)
 	idString := urlParams["id"]
