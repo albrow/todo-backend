@@ -7,7 +7,8 @@ A RESTful JSON Backend for TodoMVC
 2. Make sure you have followed [these instructions](https://golang.org/doc/code.html) for setting up your go workspace.
 3. Run `go get -u github.com/albrow/todo-backend`
 4. Change into $GOPATH/src/github.com/albrow/todo-backend
-5. Run `go run main.go`
+5. Run `go get -u ./...` to install all the dependencies
+5. Run `go run main.go` to start the server
 
 ### About
 
