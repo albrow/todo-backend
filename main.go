@@ -63,6 +63,7 @@ func main() {
 	}))
 	n.Use(recovery.JSONRecovery(true))
 	recovery.StackDepth = 3
+	recovery.IndentJSON = true
 	recovery.Formatter = func(errMsg string, stack []byte, file string, line int, fullMessages bool) interface{} {
 		return map[string]string{
 			"error": errMsg,
