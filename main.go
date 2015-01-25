@@ -16,9 +16,9 @@ import (
 )
 
 type Todo struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	IsCompleted bool   `json:"isCompleted"`
+	Id          int
+	Title       string
+	IsCompleted bool
 }
 
 type todosIndex map[int]*Todo
@@ -113,14 +113,14 @@ func (todosControllerType) Create(w http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 	val := todoData.Validator()
-	val.Require("title")
+	val.Require("Title")
 	if val.HasErrors() {
 		r.JSON(w, statusUnprocessableEntity, val.ErrorMap())
 		return
 	}
 
 	// Create the todo and render response
-	todo := createTodo(todoData.Get("title"))
+	todo := createTodo(todoData.Get("Title"))
 	r.JSON(w, http.StatusOK, todo)
 }
 
@@ -159,11 +159,11 @@ func (todosControllerType) Update(w http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 	todosMutex.Lock()
-	if todoData.KeyExists("title") {
-		todo.Title = todoData.Get("title")
+	if todoData.KeyExists("Title") {
+		todo.Title = todoData.Get("Title")
 	}
-	if todoData.KeyExists("isCompleted") {
-		todo.IsCompleted = todoData.GetBool("isCompleted")
+	if todoData.KeyExists("IsCompleted") {
+		todo.IsCompleted = todoData.GetBool("IsCompleted")
 	}
 	todosMutex.Unlock()
 
