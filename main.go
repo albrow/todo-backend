@@ -49,6 +49,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/todos", todosController.Index).Methods("GET")
 	router.HandleFunc("/todos", todosController.Create).Methods("POST")
+	router.HandleFunc("/todos/{id}", todosController.Read).Methods("GET")
 	router.HandleFunc("/todos/{id}", todosController.Update).Methods("PUT")
 	router.HandleFunc("/todos/{id}", todosController.Delete).Methods("DELETE")
 
@@ -121,6 +122,17 @@ func (todosControllerType) Create(w http.ResponseWriter, req *http.Request) {
 	// Create the todo and render response
 	todo := createTodo(todoData.Get("title"))
 	r.JSON(w, http.StatusOK, todo)
+}
+
+func (todosControllerType) Read(w http.ResponseWriter, req *http.Request) {
+	urlParams := mux.Vars(req)
+	idString := urlParams["id"]
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		panic(err)
+	}
+
+	r.JSON(w, http.StatusOK, todos[id])
 }
 
 func (todosControllerType) Update(w http.ResponseWriter, req *http.Request) {
