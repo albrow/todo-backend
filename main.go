@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/albrow/go-data-parser"
+	"github.com/albrow/forms"
 	"github.com/albrow/negroni-json-recovery"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -108,7 +108,7 @@ func (todosControllerType) Index(w http.ResponseWriter, req *http.Request) {
 
 func (todosControllerType) Create(w http.ResponseWriter, req *http.Request) {
 	// Parse data and do validations
-	todoData, err := data.Parse(req)
+	todoData, err := forms.Parse(req)
 	if err != nil {
 		panic(err)
 	}
@@ -154,7 +154,7 @@ func (todosControllerType) Update(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// Update the todo with the data in the request
-	todoData, err := data.Parse(req)
+	todoData, err := forms.Parse(req)
 	if err != nil {
 		panic(err)
 	}
